@@ -40,7 +40,11 @@
  * technically correct but subjectively wrong, we expect a touchpad to be a
  * lot slower than a mouse. Apply a magic factor to slow down all movements
  */
-#define TP_MAGIC_SLOWDOWN 0.2968 /* unitless factor */
+// #define TP_MAGIC_SLOWDOWN 0.2968 /* unitless factor */
+// lower values prevent overshooting when e.g. selecting text
+// on the other hand this decreases the acceleration curve
+#define TP_MAGIC_SLOWDOWN 0.2 /* unitless factor */
+
 
 struct touchpad_accelerator {
 	struct motion_filter base;
