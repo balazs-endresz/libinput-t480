@@ -180,14 +180,19 @@ tp_detect_wobbling(struct tp_dispatch *tp,
 
 	t->hysteresis.x_motion_history >>= 1;
 	if (dx > 0) { /* right move */
-		static const char r_l_r = 0x5; /* {Right, Left, Right} */
-
+		// static const char r_l_r = 0x5; /* {Right, Left, Right} */
 
 		t->hysteresis.x_motion_history |= (1 << 2);
-		if (t->hysteresis.x_motion_history == r_l_r) {
-			tp->hysteresis.enabled = true;
-			evdev_log_debug(tp->device, "hysteresis enabled\n");
-		}
+		// if (t->hysteresis.x_motion_history == r_l_r) {
+		// 	tp->hysteresis.enabled = true;
+		// 	evdev_log_debug(tp->device, "hysteresis enabled\n");
+		// }
+
+		// always disable hysteresis which only makes things worse
+		// based on experiences with the synaptics driver,
+		// although libinput does this elliptically now
+		// and not rectangularly like synaptics, so it might not be too bad
+		tp->hysteresis.enabled = false;
 	}
 }
 
@@ -3124,9 +3129,12 @@ tp_init_hysteresis(struct tp_dispatch *tp)
 
 	tp->hysteresis.margin.x = xmargin;
 	tp->hysteresis.margin.y = ymargin;
-	tp->hysteresis.enabled = (ax->fuzz || ay->fuzz);
-	if (tp->hysteresis.enabled)
-		evdev_log_debug(tp->device, "hysteresis enabled\n");
+	// tp->hysteresis.enabled = (ax->fuzz || ay->fuzz);
+	// if (tp->hysteresis.enabled)
+	// 	evdev_log_debug(tp->device, "hysteresis enabled\n");
+
+	tp->hysteresis.enabled = false;
+
 }
 
 static void

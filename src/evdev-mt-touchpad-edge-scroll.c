@@ -36,7 +36,11 @@
    avoid accidentally locking in scrolling mode when trying to use the entire
    touchpad to move the pointer. The user can wait for the timeout to trigger
    to do a small scroll. */
-#define DEFAULT_SCROLL_THRESHOLD TP_MM_TO_DPI_NORMALIZED(3)
+
+// default is 3, which is way too much
+// 0 makes scroll start much sooner
+// with edge scrolling 0 means you can't swipe left from the edge scroll area
+#define DEFAULT_SCROLL_THRESHOLD TP_MM_TO_DPI_NORMALIZED(0)
 
 enum scroll_event {
 	SCROLL_EVENT_TOUCH,
@@ -434,8 +438,11 @@ tp_edge_scroll_post_events(struct tp_dispatch *tp, uint64_t time)
 		raw = tp_get_delta(t);
 		fraw.x = raw.x;
 		fraw.y = raw.y;
+
 		/* scroll is not accelerated */
-		normalized = tp_filter_motion_unaccelerated(tp, &fraw, time);
+		// normalized = tp_filter_motion_unaccelerated(tp, &fraw, time);
+		// ... it is now:
+		normalized = tp_filter_motion(tp, &fraw, time);
 
 		switch (t->scroll.edge_state) {
 		case EDGE_SCROLL_TOUCH_STATE_NONE:

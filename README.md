@@ -1,5 +1,60 @@
-libinput
-========
+libinput with Thinkpad T480 specific settings
+=============================================
+
+At the moment libinput doesn't have many customisation options but the code is easy to follow, so I'm just configuring it in a custom build for myself. This means it is _very_ opinionated and some features I'm not using might not work too well.
+
+original git repo
+-----------------
+https://cgit.freedesktop.org/wayland/libinput/
+
+initial setup
+-------------
+
+```
+sudo apt install meson check ninja-build
+# git clone ... && cd libinput
+meson --prefix=/usr -Ddocumentation=false builddir/  
+```
+
+build
+-----
+
+```
+ninja -C builddir/ && sudo ninja -C builddir/ install && sudo udevadm hwdb --update 
+# now log out and back in
+
+# these don't seem to reload the driver:
+# sudo  modprobe -r psmouse && sudo modprobe psmouse
+# xinput disable 12 && xinput enable 12
+```
+
+
+features
+--------
+
+* don't overshoot when selecting text
+* make sure hysteresis is never enabled (although, this might not be an issue)
+* edge scrolling tweaks:
+  * start scrolling earlier
+  * increase speed 
+  * use accelerared profile
+
+
+TODO
+----
+
+* increase trackpoint speed
+* make scroll start even earlier
+* make edge scroll work even with just half a finger on the touchpad
+* increase `TP_MAGIC_SLOWDOWN` dynamically when not selecting text,
+  i.e. probably when the touch move starts out much faster
+
+
+___
+
+
+original libinput readme:
+=========================
 
 libinput is a library that handles input devices for display servers and other
 applications that need to directly deal with input devices.
