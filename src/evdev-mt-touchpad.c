@@ -1100,6 +1100,17 @@ tp_thumb_detect(struct tp_dispatch *tp, struct tp_touch *t, uint64_t time)
 	    t->thumb.state != THUMB_STATE_MAYBE)
 		return;
 
+	// ignore all events in the top left corner, i.e. when finger is on the top left mouse button
+	// x: left:1200 - right:5700
+	// y: top:1200 - bottom:4700
+	// evdev_log_debug(tp->device, "t->point.x: %d\n", t->point.x);
+	// evdev_log_debug(tp->device, "t->point.y: %d\n", t->point.y);
+	if((t->point.x + t->point.y) < (2400 + 1000)){
+		// evdev_log_debug(tp->device, "topleft ignored\n");
+		t->thumb.state = THUMB_STATE_YES;
+		goto out;
+	}
+
 	if (t->point.y < tp->thumb.upper_thumb_line) {
 		/* if a potential thumb is above the line, it won't ever
 		 * label as thumb */
@@ -1554,16 +1565,6 @@ tp_process_state(struct tp_dispatch *tp, uint64_t time)
 					       "See %stouchpad_jumping_cursor.html for details\n",
 					       HTTP_DOC_LINK);
 			tp_motion_history_reset(t);
-		}
-
-		// ignore all events in the top left corner, i.e. when finger is on the top left mouse button
-		// x: left:1200 - right:5700
-		// y: top:1200 - bottom:4700
-		// evdev_log_debug(tp->device, "t->point.x: %d\n", t->point.x);
-		// evdev_log_debug(tp->device, "t->point.y: %d\n", t->point.y);
-		if((t->point.x + t->point.y) < (2400 + 500)){
-			// evdev_log_debug(tp->device, "topleft ignored\n");
-			continue;
 		}
 
 		tp_thumb_detect(tp, t, time);
