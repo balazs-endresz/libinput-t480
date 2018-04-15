@@ -13,21 +13,30 @@ initial setup
 ```
 sudo apt install meson check ninja-build
 # git clone ... && cd libinput
-meson --prefix=/usr -Ddocumentation=false builddir/  
+meson --prefix=/usr -Ddocumentation=false builddir/
 ```
 
 build
 -----
 
 ```
-ninja -C builddir/ && sudo ninja -C builddir/ install && sudo udevadm hwdb --update 
+ninja -C builddir/ && sudo ninja -C builddir/ install && sudo udevadm hwdb --update
 # now log out and back in
 
-# these don't seem to reload the driver:
+# none of these reload the driver:
 # sudo  modprobe -r psmouse && sudo modprobe psmouse
 # xinput disable 12 && xinput enable 12
 ```
 
+log events
+----------
+
+```
+evdev_log_debug(tp->device, "t->point.x: %d\n", t->point.x);
+
+# man libinput-debug-events
+sudo libinput debug-events --enable-tap --set-scroll-method=edge --set-click-method=clickfinger --enable-dwt --disable-natural-scrolling --verbose
+```
 
 features
 --------
@@ -36,8 +45,9 @@ features
 * make sure hysteresis is never enabled (although, this might not be an issue)
 * edge scrolling tweaks:
   * start scrolling earlier
-  * increase speed 
+  * increase speed
   * use accelerared profile
+* ignore all events in the top left corner, i.e. when finger is on the top left mouse button
 
 
 TODO

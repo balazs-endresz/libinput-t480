@@ -1816,6 +1816,16 @@ tp_process_state(struct tp_dispatch *tp, uint64_t time)
 			tp_motion_history_reset(t);
 		}
 
+		// ignore all events in the top left corner, i.e. when finger is on the top left mouse button
+		// x: left:1200 - right:5700
+		// y: top:1200 - bottom:4700
+		// evdev_log_debug(tp->device, "t->point.x: %d\n", t->point.x);
+		// evdev_log_debug(tp->device, "t->point.y: %d\n", t->point.y);
+		if((t->point.x + t->point.y) < (2400 + 500)){
+			// evdev_log_debug(tp->device, "topleft ignored\n");
+			continue;
+		}
+
 		tp_thumb_detect(tp, t, time);
 		tp_palm_detect(tp, t, time);
 		tp_detect_wobbling(tp, t, time);
