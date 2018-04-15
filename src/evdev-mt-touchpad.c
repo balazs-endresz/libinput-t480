@@ -2604,8 +2604,11 @@ tp_init_accel(struct tp_dispatch *tp)
 	 * and y resolution, so that a circle on the
 	 * touchpad does not turn into an elipse on the screen.
 	 */
-	tp->accel.x_scale_coeff = (DEFAULT_MOUSE_DPI/25.4) / res_x;
-	tp->accel.y_scale_coeff = (DEFAULT_MOUSE_DPI/25.4) / res_y;
+
+	// increase speed further because touchpad speed is already maxed out in the settings
+	double factor = 1.5;
+	tp->accel.x_scale_coeff = factor * (DEFAULT_MOUSE_DPI/25.4) / res_x;
+	tp->accel.y_scale_coeff = factor * (DEFAULT_MOUSE_DPI/25.4) / res_y;
 	tp->accel.xy_scale_coeff = 1.0 * res_x/res_y;
 
 	if (tp->device->model_flags & EVDEV_MODEL_LENOVO_X230 ||

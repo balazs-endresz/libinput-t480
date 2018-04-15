@@ -471,9 +471,9 @@ tp_normalize_delta(const struct tp_dispatch *tp,
 {
 	struct normalized_coords normalized;
 
-	// increase scroll speed comapred to the default accel profile
+	// increase scroll speed separately from the default accel profile
 	// (it affects other gestures like pinch and swipe too)
-	int factor = 2;
+	double factor = 1.5;
 
 	normalized.x = delta.x * tp->accel.x_scale_coeff * factor;
 	normalized.y = delta.y * tp->accel.y_scale_coeff * factor;
