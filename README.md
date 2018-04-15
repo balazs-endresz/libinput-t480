@@ -3,6 +3,14 @@ libinput with Thinkpad T480 specific settings
 
 At the moment libinput doesn't have many customisation options but the code is easy to follow, so I'm just configuring it in a custom build for myself. This means it is _very_ opinionated and some features I'm not using might not work too well.
 
+
+WARNING:
+--------
+
+* THIS CAN CAUSE THE OS TO CRASH AND REQUIRE REINSTALLING IT
+* DO NOT USE THIS WITHOUT REVIEWING THE CHANGES TO THE CODE
+
+
 original git repo
 -----------------
 https://cgit.freedesktop.org/wayland/libinput/
@@ -13,20 +21,34 @@ initial setup
 ```
 sudo apt install meson check ninja-build
 # git clone ... && cd libinput
-meson --prefix=/usr -Ddocumentation=false builddir/  
+meson --prefix=/usr -Ddocumentation=false builddir/
 ```
 
 build
 -----
 
 ```
-ninja -C builddir/ && sudo ninja -C builddir/ install && sudo udevadm hwdb --update 
+ninja -C builddir/ && sudo ninja -C builddir/ install && sudo udevadm hwdb --update
 # now log out and back in
 
-# these don't seem to reload the driver:
+# none of these reload the driver:
 # sudo  modprobe -r psmouse && sudo modprobe psmouse
 # xinput disable 12 && xinput enable 12
 ```
+
+log events
+----------
+
+```
+evdev_log_debug(tp->device, "t->point.x: %d\n", t->point.x);
+
+# man libinput-debug-events
+sudo libinput debug-events --enable-tap --set-scroll-method=edge --set-click-method=clickfinger --enable-dwt --disable-natural-scrolling --verbose
+```
+
+sudo apt install evtest input-utils
+evtest
+sudo input-events 18
 
 
 features
@@ -36,19 +58,23 @@ features
 * make sure hysteresis is never enabled (although, this might not be an issue)
 * edge scrolling tweaks:
   * start scrolling earlier
-  * increase speed 
+  * increase speed
   * use accelerared profile
+* ignore all events in the top left corner, i.e. when finger is on the top left mouse button
+* extend area for thumb detection at the bottom
+* increase trackpoint speed
 
 
 TODO
 ----
 
-* increase trackpoint speed
-* make scroll start even earlier
+* trackpoint: use accelerated scrolling (not flat)
+* make edge scroll start even earlier
 * make edge scroll work even with just half a finger on the touchpad
+* allow clicks on edge scroll area
+* don't lock into edge scrolling if direction is far from vertical
 * increase `TP_MAGIC_SLOWDOWN` dynamically when not selecting text,
   i.e. probably when the touch move starts out much faster
-
 
 ___
 
