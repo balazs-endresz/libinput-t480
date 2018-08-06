@@ -1100,16 +1100,46 @@ tp_thumb_detect(struct tp_dispatch *tp, struct tp_touch *t, uint64_t time)
 	    t->thumb.state != THUMB_STATE_MAYBE)
 		return;
 
-	// ignore all events in the top left corner, i.e. when finger is on the top left mouse button
 	// x: left:1200 - right:5700
 	// y: top:1200 - bottom:4700
 	// evdev_log_debug(tp->device, "t->point.x: %d\n", t->point.x);
 	// evdev_log_debug(tp->device, "t->point.y: %d\n", t->point.y);
+
+
+	// |___________|____|___________|
+	// ############                 |
+	// ###                          |
+	// #                            |
+	// |                            |
+	// |                            |
+	// |                            |
+	// |                            |
+	// |____________________________|
+
+	// ignore all events in the top left corner,
+	// i.e. when finger is on the top left mouse button:
 	if((t->point.x + t->point.y) < (2400 + 1000)){
 		// evdev_log_debug(tp->device, "topleft ignored\n");
 		t->thumb.state = THUMB_STATE_YES;
 		goto out;
 	}
+	// also ignore events beneath the top left mouse button along its length
+	if(t->point.y < 1200 + 500)
+	if(t->point.x < 1200 + 2000){
+		// evdev_log_debug(tp->device, "topleft ignored\n");
+		t->thumb.state = THUMB_STATE_YES;
+		goto out;
+	}
+
+	// |___________|____|___________|
+	// |                            |
+	// |                            |
+	// |                            |
+	// |                            |
+	// |                            |
+	// |............................| <- upper_thumb_line
+	// |............................| <- lower_thumb_line
+	// |____________________________|
 
 	if (t->point.y < tp->thumb.upper_thumb_line) {
 		/* if a potential thumb is above the line, it won't ever
@@ -3034,11 +3064,11 @@ tp_init_thumb(struct tp_dispatch *tp)
 
 	/* detect thumbs by pressure in the bottom 15mm, detect thumbs by
 	 * lingering in the bottom 8mm */
-	mm.y = h * 0.85;
+	mm.y = h * 0.80;
 	edges = evdev_device_mm_to_units(device, &mm);
 	tp->thumb.upper_thumb_line = edges.y;
 
-	mm.y = h * 0.92;
+	mm.y = h * 0.85;
 	edges = evdev_device_mm_to_units(device, &mm);
 	tp->thumb.lower_thumb_line = edges.y;
 

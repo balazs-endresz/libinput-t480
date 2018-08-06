@@ -160,7 +160,7 @@ filter_get_type(struct motion_filter *filter)
 #define TRACKPOINT_DEFAULT_MAX_ACCEL 2.0	/* in units/us */
 #define TRACKPOINT_DEFAULT_MAX_DELTA 60
 /* As measured on a Lenovo T440 at kernel-default sensitivity 128 */
-#define TRACKPOINT_DEFAULT_RANGE 20		/* max value */
+#define TRACKPOINT_DEFAULT_RANGE 30		/* max value */
 
 /*
  * Pointer acceleration filter constants
