@@ -3,6 +3,14 @@ libinput with Thinkpad T480 specific settings
 
 At the moment libinput doesn't have many customisation options but the code is easy to follow, so I'm just configuring it in a custom build for myself. This means it is _very_ opinionated and some features I'm not using might not work too well.
 
+
+WARNING:
+--------
+
+* THIS CAN CAUSE THE OS TO CRASH AND REQUIRE REINSTALLING IT
+* DO NOT USE THIS WITHOUT REVIEWING THE CHANGES TO THE CODE
+
+
 original git repo
 -----------------
 https://cgit.freedesktop.org/wayland/libinput/
@@ -48,17 +56,20 @@ features
   * increase speed
   * use accelerared profile
 * ignore all events in the top left corner, i.e. when finger is on the top left mouse button
+* extend area for thumb detection at the bottom
+* increase trackpoint speed
 
 
 TODO
 ----
 
-* increase trackpoint speed
-* make scroll start even earlier
+* trackpoint: use accelerated scrolling (not flat)
+* make edge scroll start even earlier
 * make edge scroll work even with just half a finger on the touchpad
+* allow clicks on edge scroll area
+* don't lock into edge scrolling if direction is far from vertical
 * increase `TP_MAGIC_SLOWDOWN` dynamically when not selecting text,
   i.e. probably when the touch move starts out much faster
-
 
 ___
 
