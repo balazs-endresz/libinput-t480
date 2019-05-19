@@ -1087,12 +1087,10 @@ trackpoint_accel_profile(struct motion_filter *filter,
 
 	delta = fabs(delta);
 
-	/* This is almost the equivalent of the xserver acceleration
-	   at sensitivity 128 and speed 0.0 */
-	factor = delta * accel_filter->incline + accel_filter->offset;
-	factor = min(factor, max_accel);
+	factor = 2.5 * delta * accel_filter->incline + accel_filter->offset;
+	factor = min(factor, 4 * max_accel);
 
-	return 2 * factor;
+	return factor;
 }
 
 /**
