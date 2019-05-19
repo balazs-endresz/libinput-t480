@@ -7,8 +7,7 @@ At the moment libinput doesn't have many customisation options but the code is e
 WARNING:
 --------
 
-* THIS CAN CAUSE THE OS TO CRASH AND REQUIRE REINSTALLING IT
-* DO NOT USE THIS WITHOUT REVIEWING THE CHANGES TO THE CODE
+ANY MISTAKES IN THIS FORK CAN CAUSE YOUR OS TO CRASH AND REQUIRE REINSTALLING IT!
 
 
 original git repo
@@ -28,7 +27,7 @@ build
 -----
 
 ```
-ninja -C builddir/ && sudo ninja -C builddir/ install && sudo udevadm hwdb --update
+make install
 # now log out and back in
 
 # none of these reload the driver:
