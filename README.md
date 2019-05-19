@@ -62,10 +62,10 @@ features
 TODO
 ----
 
-* trackpoint: use accelerated scrolling (not flat)
-* make edge scroll start even earlier
+* disable touchpad buttons and palm detection at the bottom
+* trackpoint: increase acceleration in trackpoint_accelerator_set_speed instead of in trackpoint_accel_profile
+* speed up trackpoint+middlebutton scrolling
 * make edge scroll work even with just half a finger on the touchpad
-* allow clicks on edge scroll area
 * don't lock into edge scrolling if direction is far from vertical
 * increase `TP_MAGIC_SLOWDOWN` dynamically when not selecting text,
   i.e. probably when the touch move starts out much faster
