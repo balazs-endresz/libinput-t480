@@ -1092,7 +1092,7 @@ trackpoint_accel_profile(struct motion_filter *filter,
 	factor = delta * accel_filter->incline + accel_filter->offset;
 	factor = min(factor, max_accel);
 
-	return factor;
+	return 2 * factor;
 }
 
 /**
