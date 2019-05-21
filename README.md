@@ -57,6 +57,7 @@ features
 * ignore all events in the top left corner, i.e. when finger is on the top left mouse button
 * extend area for thumb detection at the bottom
 * increase trackpoint speed
+* increase trackpoint+middlebutton scroll speed
 
 
 TODO
@@ -64,7 +65,6 @@ TODO
 
 * disable touchpad buttons and palm detection at the bottom
 * make trackpoint movement smoother
-* speed up trackpoint+middlebutton scrolling
 * make edge scroll work even with just half a finger on the touchpad
 * don't lock into edge scrolling if direction is far from vertical
 * increase `TP_MAGIC_SLOWDOWN` dynamically when not selecting text,

@@ -539,6 +539,12 @@ evdev_notify_axis(struct evdev_device *device,
 		  const struct normalized_coords *delta_in,
 		  const struct discrete_coords *discrete_in);
 void
+evdev_post_scroll_trackpoint(struct evdev_device *device,
+		  uint64_t time,
+		  enum libinput_pointer_axis_source source,
+		  const struct normalized_coords *delta);
+
+void
 evdev_post_scroll(struct evdev_device *device,
 		  uint64_t time,
 		  enum libinput_pointer_axis_source source,

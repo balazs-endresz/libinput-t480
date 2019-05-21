@@ -2324,6 +2324,23 @@ evdev_start_scrolling(struct evdev_device *device,
 	device->scroll.direction |= AS_MASK(axis);
 }
 
+// new function to speed up trackpoint scrolling
+void
+evdev_post_scroll_trackpoint(
+	struct evdev_device *device,
+	uint64_t time,
+	enum libinput_pointer_axis_source source,
+	const struct normalized_coords *delta
+){
+	struct normalized_coords event;
+	event = *delta;
+
+	event.x = event.x * 4;
+	event.y = event.y * 4;
+
+	evdev_post_scroll(device, time, source, &event);
+}
+
 void
 evdev_post_scroll(struct evdev_device *device,
 		  uint64_t time,
