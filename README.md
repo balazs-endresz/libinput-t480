@@ -63,7 +63,7 @@ TODO
 ----
 
 * disable touchpad buttons and palm detection at the bottom
-* trackpoint: increase acceleration in trackpoint_accelerator_set_speed instead of in trackpoint_accel_profile
+* make trackpoint movement smoother
 * speed up trackpoint+middlebutton scrolling
 * make edge scroll work even with just half a finger on the touchpad
 * don't lock into edge scrolling if direction is far from vertical

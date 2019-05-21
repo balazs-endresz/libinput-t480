@@ -54,8 +54,8 @@
 
 /* The HW DPI rate we normalize to before calculating pointer acceleration */
 #define DEFAULT_MOUSE_DPI 1000
-#define DEFAULT_TRACKPOINT_RANGE 20
-#define DEFAULT_TRACKPOINT_SENSITIVITY 128
+#define DEFAULT_TRACKPOINT_RANGE 9  // 20
+#define DEFAULT_TRACKPOINT_SENSITIVITY 200 // 128
 
 #define ANSI_HIGHLIGHT		"\x1B[0;1;39m"
 #define ANSI_RED		"\x1B[0;31m"

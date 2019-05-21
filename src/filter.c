@@ -1087,8 +1087,8 @@ trackpoint_accel_profile(struct motion_filter *filter,
 
 	delta = fabs(delta);
 
-	factor = 2.5 * delta * accel_filter->incline + accel_filter->offset;
-	factor = min(factor, 4 * max_accel);
+	factor = 1 * delta * accel_filter->incline + accel_filter->offset;
+	factor = min(factor, 1 * max_accel);
 
 	return factor;
 }
@@ -1262,8 +1262,8 @@ trackpoint_accelerator_set_speed(struct motion_filter *filter,
 	incline = 0.8 * speed_adjustment + 1.04;
 	offset = 0;
 
-	accel_filter->max_accel = max;
-	accel_filter->incline = incline;
+	accel_filter->max_accel = max * 1;
+	accel_filter->incline = incline * 1;
 	accel_filter->offset = offset;
 	filter->speed_adjustment = speed_adjustment;
 
