@@ -69,7 +69,7 @@ trackpoint_accel_profile(struct motion_filter *filter,
 
 	factor *= accel_filter->speed_factor;
 
-	factor *= 12;
+	factor *= 3;
 
 	return factor;
 }

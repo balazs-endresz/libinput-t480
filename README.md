@@ -18,6 +18,8 @@ initial setup
 -------------
 
 ```
+echo 255 | sudo tee /sys/class/input/event6/device/device/sensitivity
+
 sudo apt install meson check ninja-build
 # git clone ... && cd libinput
 meson --prefix=/usr -Ddocumentation=false builddir/
@@ -63,6 +65,7 @@ features
 TODO
 ----
 
+* try trackpoint scroll speed increase with this: https://bugs.freedesktop.org/attachment.cgi?id=139618
 * disable touchpad buttons and palm detection at the bottom
 * make trackpoint movement smoother
 * make edge scroll work even with just half a finger on the touchpad
