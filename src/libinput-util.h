@@ -55,7 +55,6 @@
 
 /* The HW DPI rate we normalize to before calculating pointer acceleration */
 #define DEFAULT_MOUSE_DPI 1000
-#define DEFAULT_TRACKPOINT_SENSITIVITY 128
 
 #ifdef DEBUG_TRACE
 #define debug_trace(...) \
