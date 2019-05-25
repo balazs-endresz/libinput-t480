@@ -7,8 +7,7 @@ At the moment libinput doesn't have many customisation options but the code is e
 WARNING:
 --------
 
-* THIS CAN CAUSE THE OS TO CRASH AND REQUIRE REINSTALLING IT
-* DO NOT USE THIS WITHOUT REVIEWING THE CHANGES TO THE CODE
+ANY MISTAKES IN THIS FORK CAN CAUSE YOUR OS TO CRASH AND REQUIRE REINSTALLING IT!
 
 
 original git repo
@@ -30,7 +29,7 @@ build
 -----
 
 ```
-ninja -C builddir/ && sudo ninja -C builddir/ install && sudo udevadm hwdb --update
+make install
 # now log out and back in
 
 # none of these reload the driver:
@@ -60,21 +59,22 @@ features
 * ignore all events in the top left corner, i.e. when finger is on the top left mouse button
 * extend area for thumb detection at the bottom
 * increase trackpoint speed
+* increase trackpoint+middlebutton scroll speed
 
 
 TODO
 ----
 
-* trackpoint: use accelerated scrolling (not flat)
-* make edge scroll start even earlier
 * try trackpoint scroll speed increase with this: https://bugs.freedesktop.org/attachment.cgi?id=139618
 * disable touchpad buttons and palm detection at the bottom
 * make trackpoint movement smoother
 * make edge scroll work even with just half a finger on the touchpad
-* allow clicks on edge scroll area
 * don't lock into edge scrolling if direction is far from vertical
 * increase `TP_MAGIC_SLOWDOWN` dynamically when not selecting text,
   i.e. probably when the touch move starts out much faster
+* disable scroll over taskbar: https://bugs.launchpad.net/gnome-panel/+bug/39328
+* disable scroll over chrome tab list
+* ignore scroll as soon as ctrl is pressed: https://bugs.chromium.org/p/chromium/issues/detail?id=927992
 
 ___
 
