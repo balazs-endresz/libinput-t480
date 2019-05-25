@@ -68,6 +68,9 @@ trackpoint_accel_profile(struct motion_filter *filter,
 	factor = 10.06254 + (0.3 - 10.06254)/(1 + pow(velocity/0.9205459, 1.15363));
 
 	factor *= accel_filter->speed_factor;
+
+	factor *= 3;
+
 	return factor;
 }
 
