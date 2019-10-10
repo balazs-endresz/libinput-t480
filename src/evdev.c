@@ -1849,6 +1849,10 @@ evdev_configure_device(struct evdev_device *device)
 		device->scroll.invert_horizontal_scrolling = true;
 	}
 
+	// MX Master 3 is not detected, so just turn this on anyway (won't apply to touchpad)
+	// https://gitlab.freedesktop.org/libinput/libinput/issues/366#note_255930
+	device->scroll.invert_horizontal_scrolling = true;
+
 	return fallback_dispatch_create(&device->base);
 }
 
